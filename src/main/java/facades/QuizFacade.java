@@ -126,24 +126,23 @@ public class QuizFacade implements IFacade<Quiz> {
 
             List<Country> newCountryList = new ArrayList<>(allCountries);
             newCountryList.remove(correctCountry);
-//            Collections.shuffle(newCountryList);
+            Collections.shuffle(newCountryList);
 
-            List<Long> answerIds = new ArrayList<>();
-            answerIds.add(correctCountryId);
-            answerIds.add(newCountryList.get(0).getId());
-            answerIds.add(newCountryList.get(1).getId());
-            answerIds.add(newCountryList.get(2).getId());
-//            Collections.shuffle(answerIds);
+            List<String> answers = new ArrayList<>();
+            answers.add(correctCountry.getCountryName());
+            answers.add(newCountryList.get(0).getCountryName());
+            answers.add(newCountryList.get(1).getCountryName());
+            answers.add(newCountryList.get(2).getCountryName());
+            Collections.shuffle(answers);
 
             Question question = new Question(
                     correctCountryId,
 //                    svg,
                     "svg",
-                    allCountries.get(Math.toIntExact(answerIds.get(0))-1).getCountryName(),
-//                    allCountries.get(Math.toIntExact(correctCountryId)-1).getCountryName(),
-                    allCountries.get(Math.toIntExact(answerIds.get(1))-1).getCountryName(),
-                    allCountries.get(Math.toIntExact(answerIds.get(2))-1).getCountryName(),
-                    allCountries.get(Math.toIntExact(answerIds.get(3))-1).getCountryName()
+                    answers.get(0),
+                    answers.get(1),
+                    answers.get(2),
+                    answers.get(3)
             );
             questions.add(question);
         }
