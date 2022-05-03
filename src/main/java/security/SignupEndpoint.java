@@ -4,10 +4,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import entities.Country;
 import entities.Role;
 import entities.User;
 import errorhandling.API_Exception;
 import errorhandling.NotFoundException;
+import facades.CountryFacade;
 import facades.RoleFacade;
 import facades.UserFacade;
 import utils.EMF_Creator;
@@ -33,40 +35,34 @@ public class SignupEndpoint {
     public Response createUser(String jsonString) throws API_Exception, NotFoundException {
         String username;
         String password;
+        String countryName;
         try {
             JsonObject json = JsonParser.parseString(jsonString).getAsJsonObject();
             username = json.get("username").getAsString();
             password = json.get("password").getAsString();
+            countryName = json.get("country").getAsString();
         } catch (Exception e) {
             throw new API_Exception("Malformed JSON Suplied",400,e);
         }
 
         if (FACADE.usernameExists(username)) {
-            JsonObject jo = new JsonObject();
-            jo.addProperty("status", "ERROR");
-            jo.addProperty("msg", "Username already exists");
-            return Response
-                    .ok(GSON.toJson(jo))
-                    .build();
+            return throwError("Username already exists");
         }
         if (username.length() < 5) {
-            JsonObject jo = new JsonObject();
-            jo.addProperty("status", "ERROR");
-            jo.addProperty("msg", "Username must be longer than 5 characters");
-            return Response
-                    .ok(GSON.toJson(jo))
-                    .build();
+            return throwError("Username must be longer than 5 characters");
         }
         if (password.length() < 5) {
-            JsonObject jo = new JsonObject();
-            jo.addProperty("status", "ERROR");
-            jo.addProperty("msg", "Password must be longer than 5 characters");
-            return Response
-                    .ok(GSON.toJson(jo))
-                    .build();
+            return throwError("Password must be longer than 5 characters");
         }
+        if (username.contains(" ")) {
+            return throwError("Username cannot have spaces");
+        }
+        if (password.contains(" ")) {
+            return throwError("Password cannot have spaces");
+        }
+        Country country = CountryFacade.getFacade(EMF).getByName(countryName);
 
-        User user = new User(username, password);
+        User user = new User(username, password, country);
         Role userRole = RoleFacade.getRoleFacade(EMF).getRoleByName("user");
         user.addRole(userRole);
 
@@ -82,6 +78,15 @@ public class SignupEndpoint {
         JsonObject jo = new JsonObject();
         jo.addProperty("status", "SUCCESS");
         jo.addProperty("msg", "Signup successful");
+        return Response
+                .ok(GSON.toJson(jo))
+                .build();
+    }
+
+    private Response throwError(String msg) {
+        JsonObject jo = new JsonObject();
+        jo.addProperty("status", "ERROR");
+        jo.addProperty("msg", msg);
         return Response
                 .ok(GSON.toJson(jo))
                 .build();

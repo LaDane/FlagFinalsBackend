@@ -6,3 +6,7 @@ Content-Type: application/json
   "password": "test"
 }
 
+###
+
+GET https://countryflagsapi.com/svg/italy
+Content-Type: application/json
