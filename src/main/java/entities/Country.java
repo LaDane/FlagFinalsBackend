@@ -48,7 +48,7 @@ public class Country implements Serializable {
 
     @Basic(optional = false)
     @NotNull
-    @Column(name = "country_svg", columnDefinition="LONGTEXT")
+    @Column(name = "country_svg", columnDefinition="LONGTEXT")          // save as file (blop | blob)
     private String countrySVG;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy="country")

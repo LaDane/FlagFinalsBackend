@@ -75,6 +75,7 @@ public class Question implements Serializable {
     public void setAnswer2(String answer2) {this.answer2 = answer2;}
     public void setAnswer3(String answer3) {this.answer3 = answer3;}
     public void setAnswer4(String answer4) {this.answer4 = answer4;}
+    public void setPoints(Long points) {this.points = points;}
 
     public Long getId() {return id;}
     public Long getCorrectCountryId() {return correctCountryId;}
@@ -83,6 +84,7 @@ public class Question implements Serializable {
     public String getAnswer2() {return answer2;}
     public String getAnswer3() {return answer3;}
     public String getAnswer4() {return answer4;}
+    public Long getPoints() {return points;}
 
     @Override
     public String toString() {

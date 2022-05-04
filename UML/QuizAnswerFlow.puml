@@ -1,0 +1,21 @@
+@startuml
+autonumber
+
+User -> Frontend: Start quiz
+Frontend -> Backend: Request new quiz
+Backend -> Backend: Generate quiz with 20 unique questions
+Backend -> Frontend: Return generated quiz
+Frontend -> User: Display quiz question
+User -> Frontend: Select Answer
+Frontend -> Backend: Request answer validation\n(correct_id, string answer, time)
+Backend -> Backend: Calculate points
+Backend -> Frontend: Return calculated points
+Frontend -> User: Display next question
+User -> User: Repeat step six 20 times
+User -> Frontend: Select answer on last quiz question
+Frontend -> Backend: Send completed quiz
+Backend -> Backend: Calculate total points and statistics
+Backend -> Database: Store completed quiz in database
+Backend -> Frontend: Return total points and statistics
+Frontend -> User: Display total points and statistics
+@enduml

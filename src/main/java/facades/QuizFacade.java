@@ -137,8 +137,8 @@ public class QuizFacade implements IFacade<Quiz> {
 
             Question question = new Question(
                     correctCountryId,
-//                    svg,
-                    "svg",
+                    svg,
+//                    "svg",
                     answers.get(0),
                     answers.get(1),
                     answers.get(2),
@@ -149,5 +149,15 @@ public class QuizFacade implements IFacade<Quiz> {
 
         Quiz quiz = new Quiz(questions, continent, user);
         return quiz;
+    }
+
+    public Long getResult(Long correctId, String answer, float time) throws NotFoundException {
+        Country country = CountryFacade.getFacade(emf).getById(correctId);
+        if (!country.getCountryName().equals(answer)) {
+            return 0L;
+        } else {
+            int points = (int) Math.floor(time * 100);
+            return (long) points;
+        }
     }
 }
