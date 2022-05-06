@@ -1,5 +1,6 @@
 package facades;
 
+import dtos.QuizDTO;
 import entities.*;
 import errorhandling.NotFoundException;
 
@@ -138,11 +139,11 @@ public class QuizFacade implements IFacade<Quiz> {
             Question question = new Question(
                     correctCountryId,
                     svg,
-//                    "svg",
                     answers.get(0),
                     answers.get(1),
                     answers.get(2),
-                    answers.get(3)
+                    answers.get(3),
+                    0L
             );
             questions.add(question);
         }
@@ -160,4 +161,8 @@ public class QuizFacade implements IFacade<Quiz> {
             return (long) points;
         }
     }
+
+//    public Quiz quizEnd(QuizDTO dto) {
+//        Quiz quiz =
+//    }
 }

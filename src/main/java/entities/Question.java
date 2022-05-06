@@ -59,13 +59,14 @@ public class Question implements Serializable {
 
     public Question() {}
 
-    public Question(Long correctCountryId, String countrySVG, String answer1, String answer2, String answer3, String answer4) {
+    public Question(Long correctCountryId, String countrySVG, String answer1, String answer2, String answer3, String answer4, Long points) {
         this.correctCountryId = correctCountryId;
         this.countrySVG = countrySVG;
         this.answer1 = answer1;
         this.answer2 = answer2;
         this.answer3 = answer3;
         this.answer4 = answer4;
+        this.points = points;
     }
 
     public void setId(Long id) {this.id = id;}
@@ -76,6 +77,7 @@ public class Question implements Serializable {
     public void setAnswer3(String answer3) {this.answer3 = answer3;}
     public void setAnswer4(String answer4) {this.answer4 = answer4;}
     public void setPoints(Long points) {this.points = points;}
+    public void setQuiz(Quiz quiz) {this.quiz = quiz;}
 
     public Long getId() {return id;}
     public Long getCorrectCountryId() {return correctCountryId;}
@@ -85,6 +87,7 @@ public class Question implements Serializable {
     public String getAnswer3() {return answer3;}
     public String getAnswer4() {return answer4;}
     public Long getPoints() {return points;}
+    public Quiz getQuiz() {return quiz;}
 
     @Override
     public String toString() {

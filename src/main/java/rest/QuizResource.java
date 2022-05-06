@@ -2,10 +2,12 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dtos.QuestionDTO;
 import dtos.QuizDTO;
+import entities.Question;
 import entities.Quiz;
 import errorhandling.NotFoundException;
-import facades.QuizFacade;
+import facades.*;
 import facades.QuizFacade;
 import utils.EMF_Creator;
 
@@ -30,22 +32,53 @@ public class QuizResource {
         return "{\"msg\":\"Hello World\"}";
     }
 
-//    @Path("create")
-//    @POST
-//    @Produces({MediaType.APPLICATION_JSON})
-//    @Consumes({MediaType.APPLICATION_JSON})
-//    public Response create(String jsonContext) {
-//        QuizDTO dto = GSON.fromJson(jsonContext, QuizDTO.class);
-//        Quiz quiz = new Quiz(
-//            dto.getDummyStr1(),
-//            dto.getDummyStr2()
-//        );
-//        QuizDTO created = new QuizDTO(FACADE.create(quiz));
-//        return Response
-//                .ok("SUCCESS")
-//                .entity(GSON.toJson(created))
-//                .build();
-//    }
+    @Path("create")
+    @POST
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response create(String jsonContext) throws NotFoundException {
+        QuizDTO dto = GSON.fromJson(jsonContext, QuizDTO.class);
+
+        Long totalPoints = 0L;
+        Long totalCorrect = 0L;
+        Long totalIncorrect = 0L;
+        List<Question> questions = new ArrayList<>();
+        for (QuestionDTO q : dto.getQuestions()) {
+            questions.add(new Question(
+                    q.getCorrectCountryId(),
+                    q.getSvg(),
+                    q.getAnswer1(),
+                    q.getAnswer2(),
+                    q.getAnswer3(),
+                    q.getAnswer4(),
+                    q.getPoints()
+            ));
+            totalPoints += q.getPoints();
+            if (q.getPoints() != 0) {
+                totalCorrect ++;
+            } else {
+                totalIncorrect ++;
+            }
+        }
+        Quiz quiz = new Quiz(
+                totalPoints,
+                totalCorrect,
+                totalIncorrect,
+                questions,
+                ContinentFacade.getFacade(EMF).getByName(dto.getContinentName()),
+                UserFacade.getUserFacade(EMF).getUserByName(dto.getUsername())
+        );
+        Quiz created = FACADE.create(quiz);
+        for (Question q : created.getQuestions()) {
+            q.setQuiz(created);
+            QuestionFacade.getFacade(EMF).update(q);
+        }
+        QuizDTO createdDTO = new QuizDTO(created);
+        return Response
+                .ok("SUCCESS")
+                .entity(GSON.toJson(createdDTO))
+                .build();
+    }
 
 //    @Path("{id}")
 //    @PUT
@@ -126,9 +159,5 @@ public class QuizResource {
     public Long getResult(@PathParam("correctId") Long correctId, @PathParam("answer") String answer, @PathParam("time") float time) throws NotFoundException {
         Long points = FACADE.getResult(correctId, answer, time);
         return points;
-//        return Response
-//                .ok("SUCCESS")
-//                .entity(points)
-//                .build();
     }
 }
