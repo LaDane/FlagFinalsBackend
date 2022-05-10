@@ -31,5 +31,6 @@ public class ApplicationConfig extends Application {
         resources.add(rest.DemoResource.class);
         resources.add(rest.SetupResource.class);
         resources.add(rest.QuizResource.class);
+        resources.add(rest.CountryResource.class);
     }
 }

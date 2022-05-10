@@ -40,7 +40,7 @@ public class SignupEndpoint {
             JsonObject json = JsonParser.parseString(jsonString).getAsJsonObject();
             username = json.get("username").getAsString();
             password = json.get("password").getAsString();
-            countryName = json.get("country").getAsString();
+            countryName = json.get("countryName").getAsString();
         } catch (Exception e) {
             throw new API_Exception("Malformed JSON Suplied",400,e);
         }
@@ -59,6 +59,9 @@ public class SignupEndpoint {
         }
         if (password.contains(" ")) {
             return throwError("Password cannot have spaces");
+        }
+        if (countryName.length() == 0) {
+            return throwError("No country found");
         }
         Country country = CountryFacade.getFacade(EMF).getByName(countryName);
 

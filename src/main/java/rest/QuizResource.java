@@ -4,8 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dtos.QuestionDTO;
 import dtos.QuizDTO;
+import entities.Country;
 import entities.Question;
 import entities.Quiz;
+import entities.User;
 import errorhandling.NotFoundException;
 import facades.*;
 import facades.QuizFacade;
@@ -60,19 +62,44 @@ public class QuizResource {
                 totalIncorrect ++;
             }
         }
+        UserFacade userFacade = UserFacade.getUserFacade(EMF);
+        User user = userFacade.getUserByName(dto.getUsername());
+
+        // Update user entity
+        user.setAnswered(user.getAnswered() + 20L);
+        user.setPoints(user.getPoints() + totalPoints);
+        user.setCorrect(user.getCorrect() + totalCorrect);
+        user.setIncorrect(user.getIncorrect() + totalIncorrect);
+        userFacade.update(user);
+
+        // Update quiz entity
         Quiz quiz = new Quiz(
                 totalPoints,
                 totalCorrect,
                 totalIncorrect,
                 questions,
                 ContinentFacade.getFacade(EMF).getByName(dto.getContinentName()),
-                UserFacade.getUserFacade(EMF).getUserByName(dto.getUsername())
+                user
         );
         Quiz created = FACADE.create(quiz);
+
+        // Update question entities and country entities
+        QuestionFacade questionFacade = QuestionFacade.getFacade(EMF);
+        CountryFacade countryFacade = CountryFacade.getFacade(EMF);
         for (Question q : created.getQuestions()) {
             q.setQuiz(created);
-            QuestionFacade.getFacade(EMF).update(q);
+            questionFacade.update(q);
+
+            Country country = countryFacade.getById(q.getCorrectCountryId());
+            country.setAnswered(country.getAnswered() + 1L);
+            if (q.getPoints() > 0) {
+                country.setCorrect(country.getCorrect() + 1L);
+            } else {
+                country.setIncorrect(country.getIncorrect() + 1L);
+            }
+            countryFacade.update(country);
         }
+
         QuizDTO createdDTO = new QuizDTO(created);
         return Response
                 .ok("SUCCESS")

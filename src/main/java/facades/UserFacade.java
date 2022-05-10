@@ -1,5 +1,6 @@
 package facades;
 
+import entities.RenameMe;
 import entities.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -73,5 +74,21 @@ public class UserFacade {
             usernames.add(u.getUserName());
         }
         return usernames;
+    }
+
+    public User update(User user) throws NotFoundException {
+        EntityManager em = emf.createEntityManager();
+        User found = em.find(User.class, user.getUserName());
+        if (found == null) {
+            throw new NotFoundException("Entity with ID: " + user.getUserName() + " not found");
+        }
+        try {
+            em.getTransaction().begin();
+            User updated = em.merge(user);
+            em.getTransaction().commit();
+            return updated;
+        } finally {
+            em.close();
+        }
     }
 }
