@@ -26,7 +26,7 @@ public class CountryPopulator {
         populateCountriesOceania(emf);
         populateCountriesSouthAmerica(emf);
         populateCountriesAfrica(emf);
-        // North America
+        populateCountriesNorthAmerica(emf);
     }
 
 
@@ -477,25 +477,109 @@ public class CountryPopulator {
             em.close();
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
+
+
+        public static void populateCountriesNorthAmerica(EntityManagerFactory emf) throws NotFoundException, IOException {
+            EntityManager em = emf.createEntityManager();
+            Continent northAmerica = ContinentFacade.getFacade(emf).getByName("North America");
+
+            Country usa = new Country("USA", northAmerica, "840");
+            Country mexico = new Country("Mexico", northAmerica, "484");
+            Country canada = new Country("Canada", northAmerica, "124");
+            Country guatemala = new Country("Guatemala", northAmerica, "320");
+            Country haiti = new Country("Haiti", northAmerica, "332");
+            Country cuba = new Country("Cuba", northAmerica, "192");
+            Country dominicanRepublic = new Country("Dominican Republic", northAmerica, "214");
+            Country honduras = new Country("Honduras", northAmerica, "340");
+            Country nicaragua = new Country("Nicaragua", northAmerica, "558");
+            Country elSalvador = new Country("El Salvador", northAmerica, "222");
+            Country costaRica = new Country("Costa Rica", northAmerica, "188");
+            Country panama = new Country("Panama", northAmerica, "591");
+            Country jamaica = new Country("Jamaica", northAmerica, "388");
+            Country puertoRico = new Country("Puerto Rico", northAmerica, "630");
+            Country trinidad = new Country("Trinidad and Tobago", northAmerica, "780");
+            Country guadeloupe = new Country("Guadeloupe", northAmerica, "312");
+            Country belize = new Country("Belize", northAmerica, "084");
+            Country bahamas = new Country("Bahamas", northAmerica, "044");
+            Country martinique = new Country("Martinique", northAmerica, "474");
+            Country barbados = new Country("Barbados", northAmerica, "052");
+            Country stLucia = new Country("St Lucia", northAmerica, "662");
+            Country curacao = new Country("Curaçao", northAmerica, "531");
+            Country grenada = new Country("Grenada", northAmerica, "308");
+            Country stVincent = new Country("St Vincent & the Grenadines", northAmerica, "670");
+            Country aruba = new Country("Aruba", northAmerica, "533");
+            Country usVirginIslands = new Country("US Virgin Islands", northAmerica, "850");
+            Country antigua = new Country("Antigua & Barbuda", northAmerica, "028");
+            Country dominica = new Country("Dominica", northAmerica, "212");
+            Country caymanIslands = new Country("Cayman Islands", northAmerica, "136");
+            Country bermuda = new Country("Bermuda", northAmerica, "060");
+            Country greenland = new Country("Greenland", northAmerica, "304");
+            Country stKitt = new Country("St Kitts & Nevis", northAmerica, "659");
+            Country sintMaarten = new Country("Sint Maarten", northAmerica, "534");
+            Country turks = new Country("Turks & Caicos Islands", northAmerica, "796");
+            //Country stMartin = new Country("St Martin", northAmerica, "");  // Removed because it's identical to the french flag
+            Country britishVirginIslands = new Country("British Virgin Islands", northAmerica, "092");
+            //Country caribbeanNetherlands = new Country("Caribbean Netherlands", northAmerica, ""); // Same flag as netherlands
+            Country anguilla = new Country("Anguilla", northAmerica, "660");
+            Country stBarthelemy = new Country("St Barthélemy", northAmerica, "652");
+            Country stPierre = new Country("St Pierre & Miquelon", northAmerica, "666");
+            Country montserrat = new Country("Montserrat", northAmerica, "500");
+
+            try {
+                em.getTransaction().begin();
+
+                em.persist(usa);
+                em.persist(mexico);
+                em.persist(canada);
+                em.persist(guatemala);
+                em.persist(haiti);
+                em.persist(cuba);
+                em.persist(dominicanRepublic);
+                em.persist(honduras);
+                em.persist(nicaragua);
+                em.persist(elSalvador);
+                em.persist(costaRica);
+                em.persist(panama);
+                em.persist(jamaica);
+                em.persist(puertoRico);
+                em.persist(trinidad);
+                em.persist(guadeloupe);
+                em.persist(belize);
+                em.persist(bahamas);
+                em.persist(martinique);
+                em.persist(barbados);
+                em.persist(stLucia);
+                em.persist(curacao);
+                em.persist(grenada);
+                em.persist(stVincent);
+                em.persist(aruba);
+                em.persist(usVirginIslands);
+                em.persist(antigua);
+                em.persist(dominica);
+                em.persist(caymanIslands);
+                em.persist(bermuda);
+                em.persist(greenland);
+                em.persist(stKitt);
+                em.persist(sintMaarten);
+                em.persist(turks);
+                //em.persist(stMartin);
+                em.persist(britishVirginIslands);
+                //em.persist(caribbeanNetherlands);
+                em.persist(anguilla);
+                em.persist(stBarthelemy);
+                em.persist(stPierre);
+                em.persist(montserrat);
+
+
+
+
+                em.getTransaction().commit();
+            } finally {
+                em.close();
+            }
+
+
+
+        }
 }
