@@ -25,8 +25,8 @@ public class CountryPopulator {
         populateCountriesAsia(emf);
         populateCountriesOceania(emf);
         populateCountriesSouthAmerica(emf);
+        populateCountriesAfrica(emf);
         // North America
-        // Africa
     }
 
 
@@ -81,6 +81,7 @@ public class CountryPopulator {
         Country monaco = new Country("Monaco", europe, "492");
         Country liechtenstein = new Country("Liechtenstein", europe, "438");
         Country sanMarino = new Country("San Marino", europe, "674");
+
 
 
 
@@ -349,6 +350,152 @@ public class CountryPopulator {
         } finally {
             em.close();
         }
+
+    }
+
+    public static void populateCountriesAfrica(EntityManagerFactory emf) throws NotFoundException, IOException {
+        EntityManager em = emf.createEntityManager();
+        Continent africa = ContinentFacade.getFacade(emf).getByName("Africa");
+
+        Country algeria = new Country("Algeria", africa, "012");
+        Country angola = new Country("Angola", africa, "024");
+        Country benin = new Country("Benin", africa, "204");
+        Country botswana = new Country("Botswana", africa, "072");
+        Country burkinaFaso = new Country("Burkina Faso", africa, "854");
+        Country burundi = new Country("Burundi", africa, "108");
+        Country caboVerde = new Country("Cabo Verde", africa, "132");
+        Country cameroon = new Country("Cameroon", africa, "120");
+        Country CAR = new Country("Central African Republic", africa, "140");
+        Country chad = new Country("Chad", africa, "148");
+        Country comoros = new Country("Comoros", africa, "174");
+        Country congo = new Country("Congo", africa, "178");
+        Country DRC = new Country("Democratic Republic of Congo", africa, "180");
+        Country cotedIvoire = new Country("Cote d'Ivoire", africa, "384");
+        Country djibouti = new Country("Djibouti", africa, "262");
+        Country egypt = new Country("Egypt", africa, "818");
+        Country equatorialGuinea = new Country("Equatorial Guinea", africa, "262");
+        Country eritrea = new Country("Eritrea", africa, "232");
+        Country eswatini = new Country("Eswatini", africa, "748");
+        Country ethiopia = new Country("Ethiopia", africa, "231");
+        Country gabon = new Country("Gabon", africa, "266");
+        Country gambia = new Country("Gambia", africa, "270");
+        Country ghana = new Country("Ghana", africa, "288");
+        Country guinea = new Country("Guinea", africa, "324");
+        Country guineaBissau = new Country("Guinea-Bissau", africa, "624");
+        Country kenya = new Country("Kenya", africa, "404");
+        Country lesotho = new Country("Lesotho", africa, "426");
+        Country liberia = new Country("Liberia", africa, "430");
+        Country libya = new Country("Libya", africa, "434");
+        Country madagascar = new Country("Madagascar", africa, "450");
+        Country malawi = new Country("Malawi", africa, "454");
+        Country mali = new Country("Mali", africa, "466");
+        Country mauritania = new Country("Mauritania", africa, "478");
+        Country mauritius = new Country("Mauritius", africa, "480");
+        Country morocco = new Country("Morocco", africa, "504");
+        Country mozambique = new Country("Mozambique", africa, "508");
+        Country namibia = new Country("Namibia", africa, "516");
+        Country niger = new Country("Niger", africa, "562");
+        Country nigeria = new Country("Nigeria", africa, "566");
+        Country rwanda = new Country("Rwanda", africa, "646");
+        Country saoTomeAndPrinipe = new Country("Sao Tome and Principe", africa, "678");
+        Country senegal = new Country("Senegal", africa, "686");
+        Country seychelles = new Country("Seychelles", africa, "690");
+        Country sierraLeone = new Country("Sierra Leone", africa, "694");
+        Country somalia = new Country("Somalia", africa, "706");
+        Country southAfrica = new Country("South Africa", africa, "710");
+        Country southSudan = new Country("South Sudan", africa, "728");
+        Country sudan = new Country("Sudan", africa, "729");
+        Country tanzania = new Country("Tanzania", africa, "834");
+        Country togo = new Country("Togo", africa, "768");
+        Country tunisia = new Country("Tunisia", africa, "788");
+        Country uganda = new Country("Uganda", africa, "800");
+        Country zambia = new Country("Zambia", africa, "894");
+        Country zimbabwe = new Country("Zimbabwe", africa, "716");
+
+        try {
+
+            em.getTransaction().begin();
+
+            em.persist(algeria);
+            em.persist(angola);
+            em.persist(benin);
+            em.persist(botswana);
+            em.persist(burkinaFaso);
+            em.persist(burundi);
+            em.persist(caboVerde);
+            em.persist(cameroon);
+            em.persist(CAR);
+            em.persist(chad);
+            em.persist(comoros);
+            em.persist(congo);
+            em.persist(DRC);
+            em.persist(cotedIvoire);
+            em.persist(djibouti);
+            em.persist(egypt);
+            em.persist(equatorialGuinea);
+            em.persist(eswatini);
+            em.persist(eritrea);
+            em.persist(ethiopia);
+            em.persist(gabon);
+            em.persist(gambia);
+            em.persist(ghana);
+            em.persist(guinea);
+            em.persist(guineaBissau);
+            em.persist(kenya);
+            em.persist(lesotho);
+            em.persist(liberia);
+            em.persist(libya);
+            em.persist(madagascar);
+            em.persist(malawi);
+            em.persist(mali);
+            em.persist(mauritania);
+            em.persist(mauritius);
+            em.persist(morocco);
+            em.persist(mozambique);
+            em.persist(namibia);
+            em.persist(niger);
+            em.persist(nigeria);
+            em.persist(rwanda);
+            em.persist(saoTomeAndPrinipe);
+            em.persist(senegal);
+            em.persist(seychelles);
+            em.persist(sierraLeone);
+            em.persist(somalia);
+            em.persist(southAfrica);
+            em.persist(southSudan);
+            em.persist(sudan);
+            em.persist(tanzania);
+            em.persist(togo);
+            em.persist(tunisia);
+            em.persist(uganda);
+            em.persist(zambia);
+            em.persist(zimbabwe);
+
+            em.getTransaction().commit();
+
+        } finally {
+            em.close();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 }
