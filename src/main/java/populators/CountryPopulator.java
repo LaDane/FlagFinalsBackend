@@ -174,7 +174,7 @@ public class CountryPopulator {
         Country azerbaijan = new Country("Azerbaijan", asia, "031");
         Country uae = new Country("United Arab Emirates", asia, "784");
         Country tajikistan = new Country("Tajikistan", asia, "762");
-        Country israel = new Country("Israel", asia, "736");
+        Country israel = new Country("Israel", asia, "376");
         Country laos = new Country("Laos", asia, "418");
         Country lebanon = new Country("Lebanon", asia, "422");
         Country kyrgyzstan = new Country("Kyrgyzstan", asia, "417");
@@ -264,7 +264,7 @@ public class CountryPopulator {
 
     public static void populateCountriesSouthAmerica(EntityManagerFactory emf) throws NotFoundException, IOException {
         EntityManager em = emf.createEntityManager();
-        Continent southAmerica = ContinentFacade.getFacade(emf).getByName("South America");
+        Continent southAmerica = ContinentFacade.getFacade(emf).getByName("South America and Oceania");
 
         Country brazil = new Country("Brazil", southAmerica, "076");
         Country colombia = new Country("Colombia", southAmerica, "170");
@@ -308,7 +308,7 @@ public class CountryPopulator {
 
     public static void populateCountriesOceania(EntityManagerFactory emf) throws NotFoundException, IOException {
         EntityManager em = emf.createEntityManager();
-        Continent oceania = ContinentFacade.getFacade(emf).getByName("Australia");
+        Continent oceania = ContinentFacade.getFacade(emf).getByName("South America and Oceania");
 
         Country australia = new Country("Australia", oceania, "036");
         Country papuaNewGuinea = new Country("Papua New Guinea", oceania, "598");

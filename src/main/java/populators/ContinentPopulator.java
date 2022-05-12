@@ -20,19 +20,19 @@ public class ContinentPopulator {
 
         Continent africa = new Continent("Africa");
         Continent asia = new Continent("Asia");
-        Continent australia = new Continent("Australia");
         Continent europe = new Continent("Europe");
         Continent northAmerica = new Continent("North America");
-        Continent southAmerica = new Continent("South America");
+        Continent southAmericaOceania = new Continent("South America and Oceania");
+        Continent world = new Continent("World");
 
         try {
             em.getTransaction().begin();
             em.persist(africa);
             em.persist(asia);
-            em.persist(australia);
             em.persist(europe);
             em.persist(northAmerica);
-            em.persist(southAmerica);
+            em.persist(southAmericaOceania);
+            em.persist(world);
             em.getTransaction().commit();
         } finally {
             em.close();

@@ -115,7 +115,17 @@ public class QuizFacade implements IFacade<Quiz> {
         User user = UserFacade.getUserFacade(emf).getUserByName(username);
 
         EntityManager em = emf.createEntityManager();
-        TypedQuery<Country> query = em.createQuery("SELECT z FROM Country z WHERE z.continent.id = '"+continent.getId()+"'", Country.class);
+
+        TypedQuery<Country> query;
+
+        if (!continent.getContinentName().equals("World")) {
+            query = em.createQuery("SELECT z FROM Country z WHERE z.continent.id = '"+continent.getId()+"'", Country.class);
+
+        } else {
+            query = em.createQuery("SELECT z FROM Country z ", Country.class);
+
+        }
+
         List<Country> allCountries = query.getResultList();
         Collections.shuffle(allCountries);
 
