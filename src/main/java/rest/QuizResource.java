@@ -107,23 +107,7 @@ public class QuizResource {
                 .build();
     }
 
-//    @Path("{id}")
-//    @PUT
-//    @Produces({MediaType.APPLICATION_JSON})
-//    @Consumes({MediaType.APPLICATION_JSON})
-//    public Response update(@PathParam("id") Long id, String jsonContext) throws NotFoundException {
-//        QuizDTO dto = GSON.fromJson(jsonContext, QuizDTO.class);
-//        Quiz quiz = new Quiz(
-//                dto.getDummyStr1(),
-//                dto.getDummyStr2()
-//        );
-//        quiz.setId(id);
-//        QuizDTO updated = new QuizDTO(FACADE.update(quiz));
-//        return Response
-//                .ok("SUCCESS")
-//                .entity(GSON.toJson(updated))
-//                .build();
-//    }
+
 
     @Path("{id}")
     @DELETE
