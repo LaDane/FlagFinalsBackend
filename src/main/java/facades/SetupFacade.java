@@ -3,11 +3,15 @@ package facades;
 import entities.Role;
 
 import com.google.gson.JsonObject;
+import errorhandling.NotFoundException;
+import populators.ContinentPopulator;
+import populators.CountryPopulator;
 import populators.RolePopulator;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
+import java.io.IOException;
 
 public class SetupFacade {
 
@@ -32,6 +36,15 @@ public class SetupFacade {
             jo.addProperty("status", "ERROR");
             jo.addProperty("msg", "Roles already exist");
             return jo;
+        }
+
+        ContinentPopulator.populateContinents(emf);
+        try {
+            CountryPopulator.populateCountries(emf);
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         RolePopulator.populateRoles(emf);
