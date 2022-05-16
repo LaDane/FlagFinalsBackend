@@ -20,11 +20,55 @@ public class LeaderboardResource {
     private static final LeaderboardFacade FACADE = LeaderboardFacade.getFacade(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
-    @Path("highscore")
+    @Path("highscores10")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getHighscores10() {
+        JsonObject jo = FACADE.getHighscores(true);
+        return Response
+                .ok("SUCCESS")
+                .entity(GSON.toJson(jo))
+                .build();
+    }
+
+    @Path("highscores")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public Response getHighscores() {
-        JsonObject jo = FACADE.getHighscores();
+        JsonObject jo = FACADE.getHighscores(false);
+        return Response
+                .ok("SUCCESS")
+                .entity(GSON.toJson(jo))
+                .build();
+    }
+
+    @Path("mostpoints")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getMostPoints() {
+        JsonObject jo = FACADE.getMostPoints();
+        return Response
+                .ok("SUCCESS")
+                .entity(GSON.toJson(jo))
+                .build();
+    }
+
+    @Path("mostanswered")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getMostAnswered() {
+        JsonObject jo = FACADE.getMostAnswered();
+        return Response
+                .ok("SUCCESS")
+                .entity(GSON.toJson(jo))
+                .build();
+    }
+
+    @Path("mostincorrect")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getMostIncorrect() {
+        JsonObject jo = FACADE.getMostIncorrect();
         return Response
                 .ok("SUCCESS")
                 .entity(GSON.toJson(jo))
