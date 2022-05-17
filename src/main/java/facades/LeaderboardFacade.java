@@ -5,7 +5,6 @@ import com.google.gson.JsonObject;
 import entities.Country;
 import entities.Quiz;
 import entities.User;
-import errorhandling.NotFoundException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -142,5 +141,4 @@ public class LeaderboardFacade {
         mainObject.add("mostIncorrect", ja);
         return mainObject;
     }
-
 }

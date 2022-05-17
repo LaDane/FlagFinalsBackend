@@ -34,5 +34,6 @@ public class ApplicationConfig extends Application {
         resources.add(rest.QuizLiteResource.class);
         resources.add(rest.CountryResource.class);
         resources.add(rest.LeaderboardResource.class);
+        resources.add(rest.StatisticsResource.class);
     }
 }
